@@ -8,8 +8,8 @@ rm(list=ls())
 library("rvest")
 setwd("/Users/jiaru2014/Desktop/wordlist_scrape")
 
-Afile <- "1-1-list.txt"  # word.list to read from, a txt file, type in by hand
-Bfile <- "1-1.txt"  # finished word.list
+Afile <- "list/1-2-list.txt"  # word.list to read from, a txt file, type in by hand
+Bfile <- "content/1-2-content.txt"  # finished word.list
 
 word.list <- read.table(file=Afile,header = F ,sep = "\n",col.names = "v")
 word.list <- as.character(word.list$v)
@@ -41,7 +41,7 @@ SC <- function(word) {
 rSC <- function(word){
   tryCatch( SC(word),
             error = function (e) {
-              print(paste0("There is an Error in searching for ",word))
+              print(paste0("There is an Error in searching for '",word,"'"))
               paste0(word,"\n There is an Error, probabaliy no match.")
             }
           )
@@ -53,7 +53,8 @@ for (word in word.list) {
 
   cat(word.tidy,file = Bfile,append=T)
   cat("\n============================================\n",file = Bfile,append=T)
-  message(paste(match(word,word.list),"in",length(word.list)))
+  message(paste0("Searching for : '",word,"' ...  ",
+                 match(word,word.list)," in ",length(word.list)))
 }
 
 
